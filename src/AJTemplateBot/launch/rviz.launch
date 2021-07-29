@@ -1,0 +1,15 @@
+<launch>
+    <arg name="debug" default="0"/> 
+    <param name="robot_description" command="$(find xacro)/xacro --inorder '$(find AJTemplateBot)/RobotDescription/AJRb.xacro'"/>
+    <node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher"/>
+    <node name="rviz" pkg="rviz" type="rviz" args="-d $(find AJTemplateBot)/config/rviz_config.rviz"/>
+    
+    <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" >
+        <param name="use_gui" value="True"/>
+    </node>
+
+    <group if="$(eval arg('debug') ==1)">
+        <node pkg="AJTemplateBot" type="end_effector_tf_brodcaster" name="ed_effector_tf" />
+    </group>
+</launch>
+

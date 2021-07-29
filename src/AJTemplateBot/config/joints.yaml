@@ -1,0 +1,26 @@
+# Publish all joint states -----------------------------------
+joint_state_controller:
+  type: joint_state_controller/JointStateController
+  publish_rate: 50
+
+# Position Controllers ---------------------------------------
+base_rotation_controller:
+  type: effort_controllers/JointPositionController
+  joint: base_link__link_01
+  pid: {p: 2000.0, i: 100, d: 500.0}
+shoulder_rotation_controller:
+  type: effort_controllers/JointPositionController
+  joint: link_01__link_02
+  pid: {p: 50000.0, i: 100, d: 2000.0}
+elbow_rotation_controller:
+  type: effort_controllers/JointPositionController
+  joint: link_02__link_03
+  pid: {p: 20000.0, i: 50, d: 1000.0}
+
+#Gipper Controll group
+gripper_position_controller:
+  type: "position_controllers/JointGroupPositionController"
+  joints:
+    - left_gripper_joint
+    - right_gripper_joint
+  pid: {p: 100.0, i: 0.01, d: 10.0}
